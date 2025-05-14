@@ -5,6 +5,7 @@ import numpy as np
 import pytest
 from types import SimpleNamespace
 
+from qiskit.transpiler import InstructionDurations
 from quantum_euclidean_distance.quantum_ed import (
     _compute_classical_distance,
     _build_phi_psi_states,
@@ -21,6 +22,8 @@ class DummyBackend:
         self.num_qubits = num_qubits
         # Provide a dummy target with dt so transpile() won't crash
         self.target = SimpleNamespace(dt=1e-9)
+        # Provide a dummy InstructionDurations so transpiler won't crash
+        self.instruction_durations = InstructionDurations()
 
     def run(self, qobj, shots=None):
         class Job:
